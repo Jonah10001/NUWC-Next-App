@@ -1,0 +1,16 @@
+{
+    "slides": [
+        {
+            "src": "public/transparentnuwclogo.png",
+            "alt": "Image 1 for carousel"
+        }, 
+        {
+            "src": "public/transparentnuwclogo.png",
+            "alt": "Image 1 for carousel"
+        }, 
+        {
+            "src": "public/transparentnuwclogo.png",
+            "alt": "Image 1 for carousel"
+        }
+    ]
+}
