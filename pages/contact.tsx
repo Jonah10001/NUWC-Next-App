@@ -31,11 +31,11 @@ export default function Contact() {
             <div className="contact-card contact-card-VP bg-white p-4 rounded-lg shadow-md flex">
               <div className="card-image">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
+                  src="https://drive.google.com/uc?id=1ldnq50Tl3bJaE9ozhtMiIvdfOUTWtPLN"
                   alt="Vice President Image"
                   className="w-32 h-32 rounded-full mr-4"
                 />
-              </div>
+            </div>
               <div className="card-details">
                 <h2 className="text-xl font-semibold">Vice President</h2>
                 <p>Name: Alex Margolis</p>
@@ -45,7 +45,7 @@ export default function Contact() {
             <div className="contact-card contact-card-TREASURER bg-white p-4 rounded-lg shadow-md flex">
               <div className="card-image">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/2815/2815428.png"
+                  src="https://drive.google.com/uc?id=1qFXj1BNgX0Z1Cv7-5unSIyNWuzjRThm2"
                   alt="Treasurer Image"
                   className="w-32 h-32 rounded-full mr-4"
                 />
@@ -77,13 +77,14 @@ export default function Contact() {
           .contact-card-President::before {
             content: "";
             position: absolute;
-            top: -55px;
+            top: 0;
             right: 0;
             bottom: 0;
             left: 0;
             background-image: url('https://wallpapers.com/images/featured/chelsea-fc-logo-esvpoici90jl4fpx.jpg');
-            background-size: 127%;
+            background-size: cover;
             background-repeat: no-repeat;
+            background-position: top-right;
             opacity: 0.2;
             z-index: 1;
           }
