@@ -31,7 +31,7 @@ export default function Tournaments() {
               Team 5<div className="score">3</div>
             </div>
             <div className="player bot loss">
-              Team 6<div className="score">0</div>
+              Team 6<div className="score text-red">0</div>
             </div>
           </div>
           <div className="bracket-game">
