@@ -1,6 +1,6 @@
 USE nuwcapp;
 
-select * from games WHERE tournamentid=1001;
+-- select * from games WHERE tournamentid=1001;
 
 -- DROP USER IF EXISTS 'nuwcapp-read-only';
 -- DROP USER IF EXISTS 'nuwcapp-read-write';
@@ -14,8 +14,8 @@ select * from games WHERE tournamentid=1001;
 
 -- select * from tournaments;
 
--- INSERT INTO tournaments (tournamentname, tournamentdate, starttime, endtime, inprogress)
--- VALUES ('Test Tournament 3', '2023-11-13', '11:00:00', '16:00:00', FALSE);
+INSERT INTO tournaments (tournamentname, tournamentdate, starttime, endtime, inprogress)
+VALUES ('Test Tournament 4', '2023-11-13', '11:00:00', '16:00:00', FALSE);
 
 
 -- CREATE TABLE tournaments (
@@ -29,8 +29,8 @@ select * from games WHERE tournamentid=1001;
 --     PRIMARY KEY (tournamentid)
 -- );
 
-INSERT INTO games (tournamentid, hometeam, awayteam, starttime, round, played)
-VALUES (1001, "Chicago Bears", "Jacksonville Jaguars", '12:00:00', "Quarterfinals", FALSE);
+-- INSERT INTO games (tournamentid, hometeam, awayteam, starttime, round, played)
+-- VALUES (1001, "Chicago Bears", "Jacksonville Jaguars", '12:00:00', "Quarterfinals", FALSE);
 
 -- CREATE TABLE games
 -- (gameid int not null AUTO_INCREMENT,
