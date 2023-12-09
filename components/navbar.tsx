@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
     <nav className="bg-[#86D0C9] p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -11,6 +11,11 @@ export const Navbar = () => {
           </Link>
         </div>
         <ul className="flex space-x-4">
+          <li>
+            <Link href="/management" className="text-white hover:underline">
+              Management Console
+            </Link>
+          </li>
           <li>
             <Link href="/tournaments" className="text-white hover:underline">
               Tournaments
@@ -36,3 +41,5 @@ export const Navbar = () => {
     </nav>
   );
 };
+
+export default Navbar;

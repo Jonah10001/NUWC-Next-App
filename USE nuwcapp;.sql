@@ -1,5 +1,17 @@
 USE nuwcapp;
 
+-- UPDATE games
+-- SET homescore = 4, awayscore = 0
+-- WHERE gameid = 1001;
+-- INSERT INTO players (playername, teamid) VALUES
+-- ("Lionel Messi", 1001);
+
+-- INSERT INTO teams (tournamentid, numplayers, teamname) VALUES (
+--     1001, 10, "Jacksonville Jaguars"
+-- )
+
+select * from players order by playerid desc;
+
 -- select * from games WHERE tournamentid=1001;
 
 -- DROP USER IF EXISTS 'nuwcapp-read-only';
@@ -46,14 +58,18 @@ VALUES ('Test Tournament 4', '2023-11-13', '11:00:00', '16:00:00', FALSE);
 -- FOREIGN KEY (tournamentid) REFERENCES tournaments(tournamentid)
 -- );
 
--- CREATE TABLE teams (
---     teamid int not null AUTO_INCREMENT,
---     tournamentid int not null,
---     numplayers int,
---     teamname varchar(128),
---     PRIMARY KEY (teamid),
---     FOREIGN KEY (tournamentid) REFERENCES tournaments(tournamentid)
--- );
+CREATE TABLE teams (
+    teamid int not null AUTO_INCREMENT,
+    tournamentid int not null,
+    numplayers int,
+    teamname varchar(128),
+    PRIMARY KEY (teamid),
+    FOREIGN KEY (tournamentid) REFERENCES tournaments(tournamentid)
+);
+
+INSERT INTO teams (tournamentid, numplayers, teamname) VALUES (
+    1001, 10, "Chicago Bears"
+)
 
 -- CREATE TABLE players (
 --     playerid int not null AUTO_INCREMENT,
