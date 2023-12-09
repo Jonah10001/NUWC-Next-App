@@ -6,16 +6,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Navbar from '@/components/navbar';
 
 interface Team {
-    teamid: number,
-    tournamentid: number,
-    numplayers: number,
-    teamname: string
+    teamid: number;
+    tournamentid: number;
+    numplayers: number;
+    teamname: string;
 }
 
 interface InputTeam {
-    tournamentid: number,
-    numplayers: number,
-    teamname: string
+    tournamentid: number | null;
+    numplayers: number | null;
+    teamname: string | null;
 }
 
 interface Tournament {
@@ -24,7 +24,7 @@ interface Tournament {
     tournamentdate: Date | null;
     starttime: Date | null;
     endtime: Date | null;
-  }
+}
 
 export default function AddTeam() {
     // const [games, setGames] = useState<Game[]>([]);
@@ -45,8 +45,8 @@ export default function AddTeam() {
     //     console.log(newGame);
     // }, [newGame]);
     
-    const handleSelectChange = (event) => {
-        const selectedValue = event.target.value;
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValue = parseInt(event.target.value, 10);
 
         // Assuming you also have a newGame state
         // Replace the following line with the correct state variable if needed
@@ -94,7 +94,7 @@ export default function AddTeam() {
     }
   }, [selectedTournament, triggerRerender]);
 
-  const handleTeamChange = (field, value) => {
+  const handleTeamChange = (field: keyof InputTeam, value: string | number) => {
     setNewTeam((prevTeam) => ({
       ...prevTeam,
       [field]: value,
@@ -131,7 +131,7 @@ export default function AddTeam() {
             <label htmlFor="tournamentSelect">Select a Tournament:</label>
             <select
                 id="tournamentSelect"
-                value={selectedTournament}
+                value={selectedTournament || ""}
                 onChange={handleSelectChange}
                 className='m-4'
             >
@@ -156,7 +156,7 @@ export default function AddTeam() {
                     type="text"
                     className="p-2 rounded-xl w-2/3"
                     placeholder="eg. Chicago Bears"
-                    value={newTeam.teamname}
+                    value={newTeam.teamname || ""}
                     onChange={(event) => handleTeamChange('teamname', event.target.value)}
                 />
             </div>
@@ -166,7 +166,7 @@ export default function AddTeam() {
                     type="number"
                     className="p-2 rounded-xl w-2/3"
                     placeholder="eg. 11"
-                    value={newTeam.numplayers}
+                    value={newTeam.numplayers || ""}
                     onChange={(event) => handleTeamChange('numplayers', event.target.value)}
                 />
             </div>
@@ -187,8 +187,8 @@ export default function AddTeam() {
                     <div>{tournamentError}</div>
                 ) : (
                     <div className="max-h-[50vh] overflow-auto">
-                    {teams.map((team) => (
-                        <div className="w-full p-4 bg-white grid grid-cols-3 font-semibold text-sm border border-black">
+                    {teams.map((team, index) => (
+                        <div key={index} className="w-full p-4 bg-white grid grid-cols-3 font-semibold text-sm border border-black">
                             <p className="flex justify-center items-center text-center">{team.teamid}</p>
                             <p className="flex justify-center items-center text-center">{team.numplayers}</p>
                             <p className="flex justify-center items-center text-center">{team.teamname}</p>

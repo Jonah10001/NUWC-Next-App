@@ -4,14 +4,14 @@ import axios from "axios";
 import Navbar from '@/components/navbar';
 
 interface Player {
-    playerid: number,
-    playername: string,
-    teamid: number
+    playerid: number;
+    playername: string;
+    teamid: number;
 }
 
 interface InputPlayer {
-    playername: string | null,
-    teamid: number | null,
+    playername: string | null;
+    teamid: number | null;
 }
 
 interface Tournament {
@@ -23,10 +23,10 @@ interface Tournament {
   }
 
 interface Team {
-    teamid: number,
-    tournamentid: number,
-    numplayers: number,
-    teamname: string
+    teamid: number;
+    tournamentid: number;
+    numplayers: number;
+    teamname: string;
 }
 
 export default function AddPlayer() {
@@ -48,13 +48,13 @@ export default function AddPlayer() {
     //     console.log(newGame);
     // }, [newGame]);
     
-    const handleSelectChange = (event) => {
-        const selectedValue = event.target.value;
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValue = parseInt(event.target.value, 10);
         setSelectedTournament(selectedValue);
     };
 
-    const handleSelectChange2 = (event) => {
-        const selectedValue = event.target.value;
+    const handleSelectChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValue = parseInt(event.target.value, 10);
         setSelectedTeam(selectedValue);
         setNewPlayer({
             ...newPlayer,
@@ -145,7 +145,7 @@ export default function AddPlayer() {
             <label htmlFor="tournamentSelect">Select a Tournament:</label>
             <select
                 id="tournamentSelect"
-                value={selectedTournament}
+                value={selectedTournament || ""}
                 onChange={handleSelectChange}
                 className='m-4'
             >
@@ -163,7 +163,7 @@ export default function AddPlayer() {
             <label htmlFor="teamSelect">Select a Team:</label>
             <select
                 id="teamSelect"
-                value={selectedTeam}
+                value={selectedTeam || ""}
                 onChange={handleSelectChange2}
                 className='m-4'
             >
@@ -188,7 +188,7 @@ export default function AddPlayer() {
                     type="text"
                     className="p-2 rounded-xl w-2/3"
                     placeholder="eg. Joe Smith"
-                    value={newPlayer.playername}
+                    value={newPlayer.playername || ""}
                     onChange={(event) => setNewPlayer({
                         ...newPlayer,
                         playername: event.target.value
@@ -212,8 +212,8 @@ export default function AddPlayer() {
                     <div>{tournamentError}</div>
                 ) : (
                     <div className="max-h-[50vh] overflow-auto">
-                    {players.map((player) => (
-                        <div className="w-full p-4 bg-white grid grid-cols-3 font-semibold text-sm border border-black">
+                    {players.map((player, index) => (
+                        <div key={index} className="w-full p-4 bg-white grid grid-cols-3 font-semibold text-sm border border-black">
                             <p className="flex justify-center items-center text-center">{player.playerid}</p>
                             <p className="flex justify-center items-center text-center">{player.playername}</p>
                             <p className="flex justify-center items-center text-center">{player.teamid}</p>

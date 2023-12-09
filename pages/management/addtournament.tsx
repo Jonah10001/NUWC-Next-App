@@ -51,7 +51,7 @@ export default function AddTournament() {
     }
   }, [tournamentLoading]);
 
-  const handleTournamentChange = (number, value) => {
+  const handleTournamentChange = (number: number, value: string | Date | null) => {
     setNewTournament({
       ...newTournament,
       [number === 0 ? 'tournamentname' : (number === 1 ? 'tournamentdate' : (number === 2 ? 'starttime' : 'endtime'))]: value,
@@ -140,7 +140,7 @@ export default function AddTournament() {
                         autoComplete="off"
                         selected={newTournament.tournamentdate}
                         placeholderText="MM/DD/YYYY"
-                        onChange={(event) => handleTournamentChange(1, event)}
+                        onChange={(event) => handleTournamentChange(1, event as Date | null)}
                         scrollableMonthYearDropdown
                         popperPlacement="bottom"
                     />
@@ -200,14 +200,16 @@ export default function AddTournament() {
                         <div>{tournamentError}</div>
                     ) : (
                         <div className="max-h-[50vh] overflow-auto">
-                        {tournaments.map((tournament) => (
-                            <div 
+                        {tournaments.map((tournament, index) => (
+                            <div key={index}
                             onClick={() => {setShowModal(tournament.tournamentid) }} 
                             className="w-full p-4 bg-white grid grid-cols-4 font-semibold text-sm border border-black">
                             <p className="flex justify-center items-center text-center">{tournament.tournamentname}</p>
                             <p className="flex justify-center items-center text-center">{tournament.tournamentid}</p>
-                            <p className="flex justify-center items-center text-center">{tournament.tournamentdate}</p>
-                            <p className="flex justify-center items-center text-center">{tournament.starttime} - {tournament.endtime}</p>
+                            <p className="flex justify-center items-center text-center">{tournament.tournamentdate?.toLocaleDateString()}</p>
+                            <p className="flex justify-center items-center text-center">
+                                {tournament.starttime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {tournament.endtime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </p>
                             </div>
                         ))}
                         </div>

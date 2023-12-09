@@ -6,10 +6,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Navbar from '@/components/navbar';
 
 interface Team {
-    teamid: number,
-    tournamentid: number,
-    numplayers: number,
-    teamname: string
+    teamid: number;
+    tournamentid: number;
+    numplayers: number;
+    teamname: string;
 }
 
 interface Tournament {
@@ -29,7 +29,7 @@ interface Game {
   awayscore: number;
   starttime: Date;
   round: string;
-  played: boolean
+  played: boolean;
 }
 
 interface InputGame {
@@ -68,8 +68,8 @@ export default function AddGame() {
         console.log(newGame);
     }, [newGame]);
     
-    const handleSelectChange = (event) => {
-      const selectedValue = event.target.value;
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedValue = Number(event.target.value);
       setNewGame({
         ...newGame,
         tournamentid : selectedValue,
@@ -135,7 +135,7 @@ export default function AddGame() {
     }
   }, [selectedTournament]);
 
-  const handleGameChange = (field, value) => {
+  const handleGameChange = (field: keyof InputGame, value: string | number | Date) => {
     setNewGame((prevGame) => ({
       ...prevGame,
       [field]: value,
@@ -183,7 +183,7 @@ export default function AddGame() {
             <label htmlFor="tournamentSelect">Select a Tournament:</label>
             <select
                 id="tournamentSelect"
-                value={selectedTournament}
+                value={selectedTournament || ''}
                 onChange={handleSelectChange}
                 className='m-4'
             >
@@ -207,7 +207,7 @@ export default function AddGame() {
                 <select
                     className="p-2 rounded-xl w-2/3"
                     placeholder="eg. Spring Invitational"
-                    value={newGame.hometeam}
+                    value={newGame.hometeam || ''}
                     onChange={(event) => handleGameChange('hometeam', event.target.value)}
                 >
                     {teams.map((team, index) => (
@@ -225,7 +225,7 @@ export default function AddGame() {
                 <select
                     className="p-2 rounded-xl w-2/3"
                     placeholder="eg. Spring Invitational"
-                    value={newGame.awayteam}
+                    value={newGame.awayteam || ''}
                     onChange={(event) => handleGameChange('awayteam', event.target.value)}
                 >
                     {teams.map((team, index) => (
@@ -241,7 +241,7 @@ export default function AddGame() {
                 className="p-2 rounded-xl w-2/3"
                 type="number"
                 placeholder="eg. 0"
-                value={newGame.homescore}
+                value={newGame.homescore || ''}
                 onChange={(event) => handleGameChange('homescore', event.target.value)}
                 />
             </div>
@@ -251,7 +251,7 @@ export default function AddGame() {
                 className="p-2 rounded-xl w-2/3"
                 type="number"
                 placeholder="eg. 0"
-                value={newGame.awayscore}
+                value={newGame.awayscore || ''}
                 onChange={(event) => handleGameChange('awayscore', event.target.value)}
                 />
             </div>
@@ -269,7 +269,7 @@ export default function AddGame() {
                     dateFormat="h:mm aa"
                     timeFormat="h:mm aa"
                     selected={newGame.starttime}
-                    onChange={(date) => handleGameChange('starttime', date)}
+                    onChange={(date) => date && handleGameChange('starttime', date)}
                 />
                 </div>
             </div>
@@ -279,7 +279,7 @@ export default function AddGame() {
                 className="p-2 rounded-xl w-2/3"
                 type="text"
                 placeholder="eg. Quarterfinals"
-                value={newGame.round}
+                value={newGame.round || ""}
                 onChange={(event) => handleGameChange('round', event.target.value)}
                 />
             </div>
@@ -304,14 +304,14 @@ export default function AddGame() {
                     <div>{tournamentError}</div>
                 ) : (
                     <div className="max-h-[50vh] overflow-auto">
-                    {games.map((game) => (
-                        <div className="w-full p-4 bg-white grid grid-cols-7 font-semibold text-sm border border-black">
+                    {games.map((game, index) => (
+                        <div key={index} className="w-full p-4 bg-white grid grid-cols-7 font-semibold text-sm border border-black">
                         <p className="flex justify-center items-center text-center">{game.gameid}</p>
                         <p className="flex justify-center items-center text-center">{game.hometeam}</p>
                         <p className="flex justify-center items-center text-center">{game.awayteam}</p>
                         <p className="flex justify-center items-center text-center">{game.homescore}</p>
                         <p className="flex justify-center items-center text-center">{game.awayscore}</p>
-                        <p className="flex justify-center items-center text-center">{game.starttime}</p>
+                        <p className="flex justify-center items-center text-center">{game.starttime.toLocaleString()}</p>
                         <p className="flex justify-center items-center text-center">{game.round}</p>
                         </div>
                     ))}
