@@ -10,8 +10,8 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ tournamentid, onClose, hidden }) => {
-    const [image, setImage] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleFlierSubmit = async () => {
         try {
