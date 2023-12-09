@@ -2,53 +2,54 @@ import { useRouter } from 'next/router';
 import '../../app/globals.css';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {Navbar} from '../../components/navbar';
+import Navbar from '../../components/navbar';
+import Schedule from '../../components/schedule';
+import Standings from '../../components/standings';
+import Teams from '../../components/displayTeams';
+import Flier from '../../components/displayFlier';
 
 const TournamentPage = () => {
-    const router = useRouter();
-    const { tournamentid } = router.query;
-    const [games, setGames] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const router = useRouter();
+  const { tournamentid } = router.query;
+  const [value, setValue] = useState<string | null>(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
+  const [componentToRender, setComponentToRender] = useState<React.ReactNode | null>(null);
 
-    useEffect(() => {
-        const fetchGames = async () => {
-        try {
-            console.log("tournament id");
-            console.log(tournamentid);
-            if (tournamentid !== undefined) {
-                const response = await axios.get(`https://u1oql6qrwb.execute-api.us-east-2.amazonaws.com/test_stage/games/${tournamentid}`);
-                console.log("response");
-                console.log(response.data);
-                setGames(response.data);
-            }
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
-        };
-
-        fetchGames();
-    }, [tournamentid]);
-
-    if (loading) {
-        return <p>Loading...</p>;
+  useEffect(() => {
+    if (value === "standings") {
+      setComponentToRender(<Standings tournamentid={tournamentid as string} />);
+    } else if (value === "schedule") {
+      setComponentToRender(<Schedule tournamentid={tournamentid as string} />);
+    } else if (value === "teams") {
+      setComponentToRender(<Teams tournamentid={tournamentid as string} />);
+    } else {
+      setComponentToRender(<Flier tournamentid={tournamentid as string} />);
     }
+  }, [value, tournamentid]);
 
-    if (error) {
-        return <div><p>Error {error}</p></div>;
-    }
+  // if (loading) {
+  //   return <p>Loading...</p>;
+  // }
+
+  // if (error) {
+  //   return <div><p>Error {error}</p></div>;
+  // }
 
   return (
     <div>
-        <Navbar/>
+      <Navbar />
+      <div className="flex flex-col items-center justify-center">
+        <ul className="grid grid-cols-3 gap-4 p-4 m-4">
+          <li><button onClick={() => { setValue("schedule") }} className="text-black hover:bg-gray-300 rounded-xl p-4">Tournament Schedule</button></li>
+          <li><button onClick={() => { setValue("standings") }} className="text-black hover:bg-gray-300 rounded-xl p-4">Tournament Standings</button></li>
+          <li><button onClick={() => { setValue("teams") }} className="text-black hover:bg-gray-300 rounded-xl p-4">Tournament Teams</button></li>
+        </ul>
+        <p className="font-semibold m-3">Tournament ID: {tournamentid}</p>
         <div>
-        <h1>Tournament Schedule</h1>
-        <p>Tournament ID: {tournamentid}</p>
-        {/* <p>Games: {games}</p> */}
-        {/* Add the rest of your tournament details rendering here */}
+          {componentToRender}
         </div>
+      </div>
     </div>
   );
 };

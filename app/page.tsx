@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../public/transparentnuwclogo.png';
 import Image from 'next/image';
 import '../app/globals.css';
-import {Navbar} from '../components/navbar';
+import Navbar from '../components/navbar';
 // import {Carousel} from '../components/carousel';
 // import images from "../data/carouselData.json"
 
